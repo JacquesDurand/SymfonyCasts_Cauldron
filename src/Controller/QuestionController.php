@@ -11,16 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
     public function homepage()
     {
 
-        return new Response("What a bewitching controller we have conjured !");
+        return $this->render('question/homepage.html.twig');
     }
 
     /**
-     * @Route("/questions/{slug}")
+     * @Route("/questions/{slug}", name="app_question_show")
      * @param $slug
      * @return Response
      */
@@ -31,10 +31,9 @@ class QuestionController extends AbstractController
             'Honestly, I like furry shoes better than MY cat',
             'Maybe... try saying the spell backwards?',
         ];
-
         return $this->render(
             'question/show.html.twig', [
-                "questions" => ucwords(str_replace('-', ' ', $slug)),
+                "question" => ucwords(str_replace('-', ' ', $slug)),
                 "answers" => $answers
             ]
         );
